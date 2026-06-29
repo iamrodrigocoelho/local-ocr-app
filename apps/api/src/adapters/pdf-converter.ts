@@ -1,4 +1,4 @@
-import pdf from 'pdf-to-img'
+import { pdf } from 'pdf-to-img'
 
 export interface PdfConverter {
   toImages(pdfBuffer: Buffer): Promise<Buffer[]>

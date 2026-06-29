@@ -2,6 +2,7 @@ import { randomUUID } from 'crypto'
 import { OcrResultSchema } from '@ocr-reader/shared'
 import type { OllamaClient } from '../adapters/ollama-client.js'
 import type { PdfConverter } from '../adapters/pdf-converter.js'
+import type { FieldExtractor } from '../adapters/field-extractor.js'
 import type { JobStore } from './job-store.js'
 import { config } from '../config.js'
 
@@ -12,12 +13,12 @@ export interface OcrPipeline {
 export function createOcrPipeline(
   ollama: OllamaClient,
   pdfConverter: PdfConverter,
+  fieldExtractor: FieldExtractor,
   jobStore: JobStore,
 ): OcrPipeline {
   return {
     async run(jobId, buffer, mimeType, filename) {
       try {
-        // Resolve page buffers: one for images, N for PDFs
         let pageBuffers: Array<{ buffer: Buffer; mimeType: string }>
 
         if (mimeType === 'application/pdf') {
@@ -53,6 +54,14 @@ export function createOcrPipeline(
           })
         }
 
+        // Field extraction step
+        jobStore.setProcessing(jobId, 'Extraindo campos')
+        const fullTranscription = pageResults.map((p) => p.transcription.markdown).join('\n\n')
+        const extraction = await fieldExtractor.extract({
+          transcription: fullTranscription,
+          pageCount: pageResults.length,
+        })
+
         jobStore.setProcessing(jobId, 'Montando resultado')
         const finishedAt = new Date().toISOString()
 
@@ -78,11 +87,7 @@ export function createOcrPipeline(
             error: null,
           },
           pages: pageResults,
-          extraction: {
-            documentType: null,
-            fields: {},
-            warnings: ['Extração de campos disponível na Fase 3.'],
-          },
+          extraction,
         })
 
         jobStore.complete(jobId, result)

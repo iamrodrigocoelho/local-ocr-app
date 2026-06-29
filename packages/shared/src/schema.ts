@@ -46,7 +46,7 @@ const PageSchema = z.object({
   metrics: PageMetricsSchema,
 })
 
-const ExtractedFieldSchema = z.object({
+export const ExtractedFieldSchema = z.object({
   value: z.union([z.string(), z.number(), z.boolean(), z.null()]),
   confidence: z.number().min(0).max(1),
   page: z.number().int().positive(),

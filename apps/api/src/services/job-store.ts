@@ -1,4 +1,4 @@
-import type { OcrResult } from '@ocr-reader/shared'
+import type { OcrResult, ExtractedField } from '@ocr-reader/shared'
 
 export type JobStatus = 'queued' | 'processing' | 'completed' | 'failed'
 
@@ -29,6 +29,7 @@ export interface JobStore {
   setProcessing(id: string, step: string): void
   complete(id: string, result: OcrResult): void
   fail(id: string, error: string): void
+  updateFields(id: string, documentType: string | null, fields: Record<string, ExtractedField>): boolean
   subscribe(id: string, listener: (event: JobEvent) => void): () => void
   notify(id: string, event: JobEvent): void
 }
@@ -79,6 +80,16 @@ export function createJobStore(): JobStore {
       job.error = error
       job.finishedAt = new Date().toISOString()
       this.notify(id, { type: 'failed', error })
+    },
+
+    updateFields(id, documentType, fields) {
+      const job = jobs.get(id)
+      if (!job || !job.result) return false
+      job.result = {
+        ...job.result,
+        extraction: { ...job.result.extraction, documentType, fields },
+      }
+      return true
     },
 
     subscribe(id, listener) {

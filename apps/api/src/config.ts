@@ -7,6 +7,8 @@ export const config = {
     endpoint: process.env['OLLAMA_ENDPOINT'] ?? 'http://localhost:11434',
     model: process.env['OLLAMA_MODEL'] ?? 'fredrezones55/chandra-ocr-2:patch',
     timeoutMs: parseInt(process.env['OLLAMA_TIMEOUT_MS'] ?? '300000', 10),
+    extractionModel: process.env['OLLAMA_EXTRACTION_MODEL'] ?? 'llama3.2',
+    extractionTimeoutMs: parseInt(process.env['OLLAMA_EXTRACTION_TIMEOUT_MS'] ?? '120000', 10),
   },
   upload: {
     maxFileSizeBytes: parseInt(process.env['MAX_FILE_SIZE_MB'] ?? '50', 10) * 1024 * 1024,
