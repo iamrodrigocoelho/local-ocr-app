@@ -47,9 +47,9 @@ describe('LlmFieldExtractor', () => {
     const result = await extractor.extract({ transcription: MOCK_TRANSCRIPTION, pageCount: 1 })
 
     expect(mockFetch).toHaveBeenCalledOnce()
-    const [url, init] = mockFetch.mock.calls[0] as [string, RequestInit]
+    const [url, init] = mockFetch.mock.calls[0] as [string, { body: string }]
     expect(url).toBe('http://localhost:11434/api/chat')
-    const body = JSON.parse(init.body as string) as { model: string; messages: Array<{ role: string; content: string }> }
+    const body = JSON.parse(init.body) as { model: string; messages: Array<{ role: string; content: string }> }
     expect(body.model).toBe('llama3.2')
     expect(body.messages[0].content).toContain(MOCK_TRANSCRIPTION)
 

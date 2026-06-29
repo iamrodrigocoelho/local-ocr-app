@@ -126,7 +126,6 @@ export function ResultView({ result, jobId, onReset }: Props) {
             </button>
           </div>
           <div
-            // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{ __html: renderMarkdown(page.transcription.markdown) }}
             style={{
               background: 'var(--color-canvas-soft)',
