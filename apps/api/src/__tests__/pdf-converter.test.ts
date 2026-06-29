@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 // vi.mock is hoisted; must use factory to avoid import-before-mock issues
-vi.mock('pdf-to-img', () => ({ default: vi.fn() }))
+vi.mock('pdf-to-img', () => ({ pdf: vi.fn() }))
 
-import pdf from 'pdf-to-img'
+import { pdf } from 'pdf-to-img'
 import { createPdfConverter, PdfConversionError } from '../adapters/pdf-converter.js'
 
 const PNG_MAGIC = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, ...new Array(56).fill(0)])
