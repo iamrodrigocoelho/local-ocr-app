@@ -1,0 +1,27 @@
+{
+  "name": "@ocr-reader/api",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "node --env-file=../../.env --watch dist/index.js",
+    "start": "node --env-file=../../.env dist/index.js",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fastify/cors": "^11.0.0",
+    "@fastify/multipart": "^10.0.0",
+    "@fastify/rate-limit": "^11.0.0",
+    "@ocr-reader/shared": "*",
+    "dotenv": "^16.0.0",
+    "exceljs": "^4.4.0",
+    "fastify": "^5.0.0",
+    "pdf-to-img": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "vitest": "*"
+  }
+}

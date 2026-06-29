@@ -1,0 +1,61 @@
+/* Design tokens — source: docs/DESIGN.md */
+:root {
+  /* Colors */
+  --color-primary: #533afd;
+  --color-primary-deep: #4434d4;
+  --color-primary-press: #2e2b8c;
+  --color-primary-soft: #665efd;
+  --color-primary-subdued: #b9b9f9;
+
+  --color-ink: #0d253d;
+  --color-ink-secondary: #273951;
+  --color-ink-mute: #64748d;
+  --color-on-primary: #ffffff;
+
+  --color-canvas: #ffffff;
+  --color-canvas-soft: #f6f9fc;
+  --color-canvas-cream: #f5e9d4;
+  --color-hairline: #e3e8ee;
+  --color-hairline-input: #a8c3de;
+
+  --color-ruby: #ea2261;
+  --color-success: #12b76a;
+  --color-warning: #f79009;
+
+  /* Spacing (8px base) */
+  --space-xxs: 2px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-xxl: 32px;
+  --space-huge: 64px;
+
+  /* Border radius */
+  --rounded-xs: 4px;
+  --rounded-sm: 6px;
+  --rounded-md: 8px;
+  --rounded-lg: 12px;
+  --rounded-xl: 16px;
+  --rounded-pill: 9999px;
+
+  /* Typography */
+  --font-family: 'Inter', 'SF Pro Display', system-ui, sans-serif;
+  --font-size-display-xl: 48px;
+  --font-size-display-lg: 32px;
+  --font-size-display-md: 26px;
+  --font-size-heading-lg: 22px;
+  --font-size-heading-md: 20px;
+  --font-size-body-lg: 16px;
+  --font-size-body-md: 15px;
+  --font-size-caption: 13px;
+  --font-size-micro: 11px;
+
+  /* Elevation */
+  --shadow-1: 0 1px 3px rgba(0, 55, 112, 0.08);
+  --shadow-2: 0 8px 24px rgba(0, 55, 112, 0.08), 0 2px 6px rgba(0, 55, 112, 0.04);
+
+  /* Breakpoints (reference only, use in media queries) */
+  /* --bp-mobile: 768px; --bp-tablet: 1024px; --bp-wide: 1440px */
+}
