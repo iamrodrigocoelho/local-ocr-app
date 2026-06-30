@@ -2,6 +2,7 @@ import type { FastifyInstance } from 'fastify'
 import { validateUpload, ValidationError } from '../validation/upload.js'
 import type { JobStore } from '../services/job-store.js'
 import type { OcrPipeline } from '../services/ocr-pipeline.js'
+import { config } from '../config.js'
 
 export function registerJobRoutes(
   server: FastifyInstance,
@@ -61,6 +62,7 @@ export function registerJobRoutes(
       'Cache-Control': 'no-cache',
       Connection: 'keep-alive',
       'X-Accel-Buffering': 'no',
+      'Access-Control-Allow-Origin': config.corsOrigin,
     })
 
     const send = (data: object) => {
