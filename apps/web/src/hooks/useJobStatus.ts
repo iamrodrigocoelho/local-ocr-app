@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { OcrResult } from '@ocr-reader/shared'
 import { openJobEvents } from '../api/jobs.js'
 
-export type JobPhase = 'connecting' | 'processing' | 'completed' | 'failed'
+export type JobPhase = 'connecting' | 'processing' | 'completed' | 'failed' | 'canceled'
 
 export interface JobStatus {
   phase: JobPhase
@@ -58,6 +58,9 @@ export function useJobStatus(jobId: string | null): JobStatus {
         es.close()
       } else if (event.type === 'failed') {
         setState((prev) => ({ ...prev, phase: 'failed', step: null, error: event.error ?? 'Erro desconhecido.' }))
+        es.close()
+      } else if (event.type === 'canceled') {
+        setState((prev) => ({ ...prev, phase: 'canceled', step: null, error: 'Job cancelado.' }))
         es.close()
       }
     }

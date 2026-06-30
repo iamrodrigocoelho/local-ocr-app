@@ -78,6 +78,11 @@ export function registerJobRoutes(
       reply.raw.end()
       return reply
     }
+    if (job.status === 'canceled') {
+      send({ type: 'canceled' })
+      reply.raw.end()
+      return reply
+    }
 
     // Send current step if already processing
     if (job.status === 'processing') {
@@ -86,7 +91,7 @@ export function registerJobRoutes(
 
     const unsubscribe = jobStore.subscribe(request.params.id, (event) => {
       send(event)
-      if (event.type === 'completed' || event.type === 'failed') {
+      if (event.type === 'completed' || event.type === 'failed' || event.type === 'canceled') {
         reply.raw.end()
       }
     })

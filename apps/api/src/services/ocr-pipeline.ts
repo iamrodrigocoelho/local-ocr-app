@@ -33,6 +33,8 @@ export function createOcrPipeline(
         const pageResults = []
 
         for (let i = 0; i < pageBuffers.length; i++) {
+          if (jobStore.get(jobId)?.status === 'canceled') return
+
           const { buffer: pageBuffer, mimeType: pageMimeType } = pageBuffers[i]
           jobStore.setProcessing(jobId, `Lendo página ${i + 1} de ${pageBuffers.length}`)
 
@@ -53,6 +55,8 @@ export function createOcrPipeline(
             },
           })
         }
+
+        if (jobStore.get(jobId)?.status === 'canceled') return
 
         // Field extraction step
         jobStore.setProcessing(jobId, 'Extraindo campos')

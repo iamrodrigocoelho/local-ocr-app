@@ -1,3 +1,6 @@
+import { join } from 'node:path'
+import { homedir } from 'node:os'
+
 export const config = {
   host: process.env['HOST'] ?? '127.0.0.1',
   port: parseInt(process.env['PORT'] ?? '3000', 10),
@@ -14,4 +17,5 @@ export const config = {
     maxFileSizeBytes: parseInt(process.env['MAX_FILE_SIZE_MB'] ?? '50', 10) * 1024 * 1024,
     maxPages: parseInt(process.env['MAX_PAGES'] ?? '50', 10),
   },
+  dbPath: process.env['DB_PATH'] ?? join(homedir(), '.ocr-reader', 'jobs.db'),
 } as const

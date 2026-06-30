@@ -1,6 +1,6 @@
 interface Props {
   currentStep: string | null
-  phase: 'connecting' | 'processing' | 'completed' | 'failed'
+  phase: 'connecting' | 'processing' | 'completed' | 'failed' | 'canceled'
   completedSteps: string[]
 }
 
